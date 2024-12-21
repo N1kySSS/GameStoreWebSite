@@ -1,0 +1,20 @@
+<section id="container" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="navbar">
+        <img th:src="@{${model.head.webSitePicUri}}" alt="WebSite logo" class="logo">
+        <ul>
+            <li><a th:classappend="${currentUri == '/' ? 'active' : ''}" href="/">Главная</a></li>
+            <li><a th:classappend="${currentUri == '/donation' ? 'active' : ''}" href="/donation">Донаты</a></li>
+            <li><a th:classappend="${currentUri == '/category' ? 'active' : ''}" href="/category">Категории</a></li>
+            <li><a th:classappend="${currentUri == '/review' ? 'active' : ''}" href="/review">Отзывы</a></li>
+            <li><a th:classappend="${currentUri == '/order' ? 'active' : ''}" href="/order">Заказы</a></li>
+            <li><a th:if="${isAdmin}" th:classappend="${currentUri == '/crud' ? 'active' : ''}" href="/crud">CRUD</a></li>
+        </ul>
+        <div class="user-info">
+            <h1>
+                <a th:text="${model.head.userNickname}" th:href="@{/profile}" class="nickname">Nick</a>
+            </h1>
+            <h1 th:text="${model.head.balance} + 'руб'" class="balance">Balance</h1>
+            <img th:src="@{${model.head.userPicUri}}" alt="Picture" class="userPicture">
+        </div>
+    </div>
+</section>

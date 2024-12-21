@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Информация об игре</h2>
+        <div class="column">
+            <img th:src="@{${model.game.game.picUri}}" alt="Game Image" class="game-image">
+            <h3 th:text="'ID: ' + ${model.game.game.gameId}"></h3>
+            <h3 th:text="'Название: ' + ${model.game.game.name}"></h3>
+            <h3 th:text="'Цена: ' + ${model.game.game.price}"></h3>
+            <h3 th:text="'Описание: ' + ${model.game.description}"></h3>
+            <h3 th:text="'Рейтинг: ' + ${model.game.rating}"></h3>
+            <h3 th:text="'Жанры: ' + ${model.game.genres}"></h3>
+            <h3 th:text="'Платформы: ' + ${model.game.platforms}"></h3>
+        </div>
+        <button class="order-button" onclick="window.location='http://localhost:8080/order/create'">Заказать</button>
+        <button th:if="${isAdmin}" class="admin-button" onclick="window.location='http://localhost:8080/crud'">Изменить/Удалить</button>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

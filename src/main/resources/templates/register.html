@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/icon.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="Register">Cтраница</title>
+</head>
+
+<body>
+
+<main>
+    <section class="content">
+        <h2>Register</h2>
+        <form th:action="@{/users/register}"
+              th:method="post"
+              th:object="${userRegistrationDto}"
+              class="form">
+            <div class="field">
+                <label class="form-label" for="firstName">First Name</label>
+                <input th:field="*{firstName}"
+                       th:errorclass="is-invalid"
+                       type="text" class="form-control text-center" id="firstName" aria-describedby="firstNameHelp"
+                       name="firstName"/>
+                <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger">Error
+                    message</small>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="lastName">Last Name</label>
+                <input th:field="*{lastName}"
+                       th:errorclass="is-invalid"
+                       type="text" class="form-control text-center" id="lastName" aria-describedby="lastName"
+                       name="lastName"/>
+                <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger">Error
+                    message</small>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="email">Email</label>
+                <input th:field="*{email}"
+                       th:errorclass="is-invalid"
+                       type="email" class="form-control text-center"
+                       id="email" aria-describedby="email" name="email"/>
+                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                       class="text-danger">Error
+                    message</small>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="password">Password</label>
+                <input th:field="*{password}"
+                       required minlength="8"
+                       th:errorclass="is-invalid"
+                       type="password" min="0" class="form-control text-center"
+                       id="password" aria-describedby="password" name="password"/>
+                <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                       class="text-danger">Error
+                    message</small>
+            </div>
+
+
+            <div class="field">
+                <label class="form-label" for="confirmPassword">Confirm password</label>
+                <input th:field="*{confirmPassword}"
+                       required minlength="8"
+                       th:errorclass="is-invalid"
+                       type="password" min="0" class="form-control text-center"
+                       id="confirmPassword" aria-describedby="confirmPassword" name="confirmPassword"/>
+                <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                       class="text-danger">Error
+                    message</small>
+            </div>
+
+            <div class="error-message">
+                <small th:if="${#fields.hasGlobalErrors()}"
+                       th:each="err : ${#fields.globalErrors()}"
+                       th:text="${err}"
+                       class="text-danger"></small>
+            </div>
+
+            <button type="submit" class="order-button">Register</button>
+        </form>
+    </section>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <div style="display: flex; gap: 20px;">
+            <div style="flex: 1;">
+                <h2>Create</h2>
+                <button class="order-button" onclick="window.location='http://localhost:8080/games/createUpdate'">Создать игру</button>
+                <button class="order-button" onclick="window.location='http://localhost:8080/genres/createUpdate'">Создать жанр</button>
+                <button class="order-button" onclick="window.location='http://localhost:8080/order/create'">Создать заказ</button>
+                <button class="order-button" onclick="window.location='http://localhost:8080/review/create'">Создать отзыв</button>
+            </div>
+            <div style="flex: 1;">
+                <h2>Read</h2>
+                <form th:action="@{/crud/read}"
+                      th:method="post"
+                      th:object="${readForm}"
+                      class="form">
+                    <div class="field">
+                        <label class="form-label" for="className">Название класса</label>
+                        <input th:field="*{className}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="className"/>
+                    </div>
+                    <button type="submit" class="order-button">Получить данные</button>
+                    <div class="error-message">
+                        <small th:if="${#fields.hasGlobalErrors()}"
+                               th:each="err : ${#fields.globalErrors()}"
+                               th:text="${err}"
+                               class="text-danger"></small>
+                    </div>
+                </form>
+            </div>
+            <div style="flex: 1;">
+                <h2>Update</h2>
+                <button class="order-button" onclick="window.location='http://localhost:8080/games/createUpdate'">Обновить игру</button>
+                <button class="order-button" onclick="window.location='http://localhost:8080/genres/createUpdate'">Обновить жанр</button>
+                <button class="order-button" onclick="window.location='http://localhost:8080/order/update'">Обновить заказ</button>
+                <button class="order-button" onclick="window.location='http://localhost:8080/users/update'">Обновить пользователя</button>
+            </div>
+            <div style="flex: 1;">
+                <h2>Delete</h2>
+                <form th:action="@{/crud/delete}"
+                      th:method="post"
+                      th:object="${deleteForm}"
+                      class="form">
+                    <div class="field">
+                        <label class="form-label" for="deleteClassName">Название класса</label>
+                        <input th:field="*{deleteClassName}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="deleteClassName"/>
+                    </div>
+                    <div class="field">
+                        <label class="form-label" for="entityId">Id сущности</label>
+                        <input th:field="*{entityId}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="entityId"/>
+                    </div>
+                    <button type="submit" class="admin-button">Удалить сущность</button>
+                    <div class="error-message">
+                        <small th:if="${#fields.hasGlobalErrors()}"
+                               th:each="err : ${#fields.globalErrors()}"
+                               th:text="${err}"
+                               class="text-danger"></small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

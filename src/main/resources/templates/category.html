@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <div>
+        <div>
+            <section class="content-list">
+                <h2 class="search-text">Поиск игр</h2>
+                <form th:action="@{/category}"
+                      th:method="get"
+                      th:object="${form}">
+                    <div class="input-group">
+                        <input type="text"
+                               th:field="*{searchTerm}"
+                               class="form-control"
+                               placeholder="Поиск по названию"/>
+                        <input type="hidden" th:field="*{page}" />
+                        <input type="hidden" th:field="*{size}" />
+                        <button class="btn" type="submit">Поиск</button>
+                    </div>
+                </form>
+                <div th:if="${#lists.isEmpty(model.game)}" class="alert-info">Игры не найдены</div>
+                <div th:if="${not #lists.isEmpty(model.game)}">
+                    <div th:each="current : ${model.game}">
+                        <h3>
+                            <a th:text="'Название: ' + ${current.game.name}" th:href="@{'/games/' + ${current.game.gameId}}">Название игры</a>
+                        </h3>
+                        <img th:src="@{${current.game.picUri}}" alt="Game Image" class="game-image">
+                        <h3 th:text="'Описание: ' + ${current.description}">Описание игры</h3>
+                        <h3 th:text="'Рейтинг: ' + ${current.rating}">Рейтинг игры</h3>
+                        <h3 th:text="'Жанры: ' + ${current.genres}">Жанры игры</h3>
+                        <h3 th:text="'Платформы: ' + ${current.platforms}">Платформы игры</h3>
+                        <h3 th:text="'Цена: ' + ${current.game.price}">Цена игры</h3>
+                        <button class="order-button" onclick="window.location='http://localhost:8080/order/create'">Заказать</button>
+                    </div>
+                    <nav th:if="${model.totalPages > 1}" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item"
+                                th:each="pageNumber : ${#numbers.sequence(1, model.totalPages)}"
+                                th:classappend="${pageNumber == form.page} ? 'active'">
+                                <a class="page-link"
+                                   th:href="@{/category(page=${pageNumber}, size=${form.size}, searchTerm=${form.searchTerm})}"
+                                   th:text="${pageNumber}">1</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Создать заказ</h2>
+        <form th:action="@{/order/create}"
+              th:method="post"
+              th:object="${form}"
+              class="form">
+            <div class="field">
+                <label class="form-label" for="game">Название игры</label>
+                <input th:field="*{game}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="game"/>
+            </div>
+            <button type="submit" class="order-button">Оформить заказ</button>
+            <div class="error-message">
+                <small th:if="${#fields.hasGlobalErrors()}"
+                       th:each="err : ${#fields.globalErrors()}"
+                       th:text="${err}"
+                       class="text-danger"></small>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

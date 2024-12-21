@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/icon.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="Login">Cтраница</title>
+</head>
+
+<body>
+
+<main>
+    <section class="content">
+        <h2>Login</h2>
+        <form th:action="@{/users/login}"
+              th:method="post"
+              class="form">
+            <div class="field">
+                <label class="form-label" for="email">Email</label>
+                <input id="email"
+                       name="username"
+                       th:value="${email}"
+                       type="text" class="form-control text-center"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="password">Password</label>
+                <input id="password"
+                       name="password"
+                       type="password" class="form-control text-center" aria-describedby="passwordHelp"/>
+            </div>
+
+            <p class="text-danger" th:if="${badCredentials}" style="color: Red;">
+                Invalid email or password.
+            </p>
+
+            <button type="submit" class="order-button">Login</button>
+        </form>
+        <h3>Нет аккаунта? Зарегистрируйся по кнопке ниже</h3>
+        <button class="order-button" onclick="window.location='http://localhost:8080/users/register'">Register</button>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

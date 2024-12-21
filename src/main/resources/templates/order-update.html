@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Обновить заказ</h2>
+        <form th:action="@{/order/update}"
+              th:method="post"
+              th:object="${form}"
+              class="form">
+            <div class="field">
+                <label class="form-label" for="status">Статус</label>
+                <input th:field="*{status}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="status"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="id">Id заказа</label>
+                <input th:field="*{id}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="id"/>
+            </div>
+            <button type="submit" class="order-button">Подтвердить</button>
+            <div class="error-message">
+                <small th:if="${#fields.hasGlobalErrors()}"
+                       th:each="err : ${#fields.globalErrors()}"
+                       th:text="${err}"
+                       class="text-danger"></small>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

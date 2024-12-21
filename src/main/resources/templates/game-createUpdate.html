@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Создать/Обновить игру</h2>
+        <form th:action="@{/games/createUpdate}"
+              th:method="post"
+              th:object="${form}"
+              class="form">
+            <div class="field">
+                <label class="form-label" for="name">Name</label>
+                <input th:field="*{name}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="name"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="developer">Developer</label>
+                <input th:field="*{developer}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="developer"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="description">Description</label>
+                <input th:field="*{description}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="description"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="price">Price</label>
+                <input th:field="*{price}"
+                       th:errorclass="is-invalid"
+                       type="number"
+                       min="0"
+                       class="form-control text-center"
+                       id="price"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="genres">List genres</label>
+                <input th:field="*{genres}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="genres"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="platforms">List platforms</label>
+                <input th:field="*{platforms}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="platforms"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="imageUrl">ImageUri</label>
+                <input th:field="*{imageUrl}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="imageUrl"/>
+            </div>
+
+            <div class="field">
+                <label class="form-label" for="gameId">Game ID</label>
+                <input th:field="*{gameId}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control text-center"
+                       id="gameId"/>
+            </div>
+            <button type="submit" class="order-button">Подтвердить</button>
+            <div class="error-message">
+                <small th:if="${#fields.hasGlobalErrors()}"
+                       th:each="err : ${#fields.globalErrors()}"
+                       th:text="${err}"
+                       class="text-danger"></small>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

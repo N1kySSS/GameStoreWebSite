@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Профиль</h2>
+        <form th:action="@{/profile}"
+              th:method="post"
+              th:object="${form}"
+              class="form">
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <img th:src="@{${model.head.userPicUri}}" alt="Picture" class="userPicture" width="150" height="150">
+                    <div class="field">
+                        <label class="form-label" for="picUri">Аватарка</label>
+                        <input th:field="*{picUri}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="picUri"/>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="field">
+                        <label class="form-label" for="firstName">Имя</label>
+                        <input th:field="*{firstName}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="firstName"/>
+                    </div>
+
+                    <div class="field">
+                        <label class="form-label" for="lastName">Фамилия</label>
+                        <input th:field="*{lastName}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="lastName"/>
+                    </div>
+
+                    <div class="field">
+                        <label class="form-label" for="dateOfBirthday">Дата рождения</label>
+                        <input th:field="*{dateOfBirthday}"
+                               th:errorclass="is-invalid"
+                               type="text"
+                               class="form-control text-center"
+                               id="dateOfBirthday"/>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="order-button">Обновить</button>
+            <div class="error-message">
+                <small th:if="${#fields.hasErrors()}" class="text-danger">Error</small>
+            </div>
+        </form>
+        <form th:action="@{/logout}" method="post" class="form">
+            <input type="submit" value="Logout" />
+        </form>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="donat">
+        <h2>Пополнение счета</h2>
+        <form th:action="@{/donation}"
+              th:method="post"
+              th:object="${form}">
+            <div class="input-group">
+                <input type="number"
+                       th:field="*{countOfMoney}"
+                       class="form-control"
+                       placeholder="Сумма"
+                       min="100"
+                       max="100000"/>
+            </div>
+            <button type="submit" class="order-button">Пополнить</button>
+            <div class="error-message">
+                <small th:if="${#fields.hasGlobalErrors()}"
+                       th:each="err : ${#fields.globalErrors()}"
+                       th:text="${err}"
+                       class="text-danger"></small>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

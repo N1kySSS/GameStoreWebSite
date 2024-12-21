@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Отзывы</h2>
+        <div th:if="${#lists.isEmpty(model.reviews)}">
+            <h3>Отзывы отсутствуют</h3>
+        </div>
+        <div th:if="${!#lists.isEmpty(model.reviews)}" th:each="current : ${model.reviews}">
+            <section class="current-review">
+                <h3 th:text="'Отзыв: ' + ${current.gameName}">Название отзыва</h3>
+                <h3 th:text="'Описание: ' + ${current.description}">Описание отзыва</h3>
+                <h3 th:text="'Рейтинг: ' + ${current.rating}">Рейтинг игры</h3>
+            </section>
+        </div>
+        <button class="order-button" onclick="window.location='http://localhost:8080/review/create'">Новый отзыв
+        </button>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

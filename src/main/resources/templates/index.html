@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="popular-section">
+        <h2>Популярное</h2>
+        <div class="carousel1">
+            <div class="carousel-items">
+                <div th:each="game : ${model.popularGames}" class="carousel-item">
+                    <img th:src="@{${game.picUri}}" alt="Game Image">
+                    <h3>
+                        <a th:text="${game.name}" th:href="@{'/games/' + ${game.gameId}}">Название игры</a>
+                    </h3>
+                    <p th:text="'Цена: ' + ${game.price} + ' руб.'">Цена: _ руб.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="new-section">
+        <h2>Новое</h2>
+        <div class="carousel2">
+            <div class="carousel-items">
+                <div th:each="game : ${model.newGames}" class="carousel-item">
+                    <img th:src="@{${game.picUri}}" alt="Game Image">
+                    <h3>
+                        <a th:text="${game.name}" th:href="@{'/games/' + ${game.gameId}}">Название игры</a>
+                    </h3>
+                    <p th:text="'Цена: ' + ${game.price} + ' руб.'">Цена: _ руб.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

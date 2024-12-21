@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+
+<header th:replace="fragments/header"/>
+
+<main>
+    <section class="content">
+        <h2>Заказы</h2>
+        <div th:if="${#lists.isEmpty(model.orders)}">
+            <h3>Заказы отсутствуют</h3>
+        </div>
+        <div th:if="${!#lists.isEmpty(model.orders)}" th:each="current : ${model.orders}">
+            <section class="current-order">
+                <h3 th:text="'Игра: ' + ${current.gameName}">Название игры</h3>
+                <h3 th:text="'ID игры: ' + ${current.gameId}">Id игры</h3>
+                <h3 th:text="'Цена: ' + ${current.sumOfOrder}">Сумма заказа</h3>
+                <h3 th:text="${current.status}">Статус</h3>
+            </section>
+        </div>
+        <button class="order-button" onclick="window.location='http://localhost:8080/order/create'">Новый заказ</button>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>
