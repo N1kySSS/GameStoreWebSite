@@ -3,7 +3,6 @@ package com.example.gamestore.config;
 import com.example.gamestore.entity.enums.UserRoles;
 import com.example.gamestore.repository.UserRepository;
 import com.example.gamestore.service.impl.AppUserDetailsService;
-import com.example.gamestore.service.impl.AuthServiceImpl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,7 @@
 package com.example.gamestore.service.impl;
 
 import com.example.gamestore.dto.GameDTO;
+import com.example.gamestore.dto.GenreDTO;
 import com.example.gamestore.entity.Game;
 import com.example.gamestore.entity.enums.Platform;
 import com.example.gamestore.repository.GameRepository;
@@ -38,6 +39,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     @CacheEvict(cacheNames = "allGames", allEntries = true)
     public GameDTO addGame(GameDTO gameDTO) {
         if (!this.validationUtil.isValid(gameDTO)) {
@@ -60,6 +62,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     @Cacheable("allGames")
     public List<GameDTO> getAll() {
         List<Game> games = (List<Game>) gameRepository.findAll();
@@ -130,6 +133,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public GameDTO getByName(String name) {
         if (name == null) {
             throw new RuntimeException("Неверное название");
@@ -206,7 +210,7 @@ public class GameServiceImpl implements GameService {
                 ? gameRepository.findByNameContainingIgnoreCase(searchTerm, pageable)
                 : (Page<Game>) gameRepository.findAll();
 
-        return gamesPage.map(game -> new GameDTO(game.getId(), game.getPicUri(), game.getPrice(), game.getName(), game.getDeveloper(), game.getDescription(), game.getReleaseData(), game.getPlatforms().stream().map(Platform::toString).toList(), null));
+        return gamesPage.map(game -> new GameDTO(game.getId(), game.getPicUri(), game.getPrice(), game.getName(), game.getDeveloper(), game.getDescription(), game.getReleaseData(), game.getPlatforms().stream().map(Platform::toString).toList(), game.getGenres().stream().map(it -> modelMapper.map(it, GenreDTO.class)).toList()));
     }
 
     @Override

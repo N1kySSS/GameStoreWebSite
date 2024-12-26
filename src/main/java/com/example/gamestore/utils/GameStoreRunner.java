@@ -1,12 +1,11 @@
 package com.example.gamestore.utils;
 
-import com.example.gamestore.dto.GameDTO;
-import com.example.gamestore.dto.GenreDTO;
-import com.example.gamestore.dto.ReviewDTO;
 import com.example.gamestore.dto.UserDTO;
 import com.example.gamestore.entity.enums.Platform;
-import com.example.gamestore.entity.enums.UserRoles;
-import com.example.gamestore.service.*;
+import com.example.gamestore.service.GameService;
+import com.example.gamestore.service.GenreService;
+import com.example.gamestore.service.UserService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,30 +14,52 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.Random;
 
 @Component
 public class GameStoreRunner implements CommandLineRunner {
+    private static final String[] DESCRIPTIONS = {
+            "Experience an unforgettable adventure.",
+            "Challenge yourself in a world of endless possibilities.",
+            "Explore stunning landscapes and unique environments.",
+            "Engage in thrilling action and strategic gameplay.",
+            "Uncover hidden secrets and solve intriguing mysteries.",
+            "Build, create, and shape your own destiny.",
+            "Face formidable challenges and emerge victorious.",
+            "Immerse yourself in a captivating story.",
+            "Discover new worlds and exciting opportunities.",
+            "Customize your experience and master your skills.",
+            "Collaborate or compete with others in dynamic scenarios.",
+            "Test your reflexes and tactical thinking.",
+            "Push your limits in a fast-paced, exhilarating journey.",
+            "Make choices that shape the outcome of your adventure.",
+            "Enjoy a perfect blend of strategy and excitement.",
+            "Dive into a richly detailed and immersive experience.",
+            "Unleash your creativity in an open-ended world.",
+            "Forge your path and leave a lasting impact.",
+            "Explore diverse challenges and rewarding gameplay.",
+            "Enjoy a timeless experience filled with surprises."
+    };
+    private static final String baseGameAvatar = "https://yt3.googleusercontent.com/XaT4vQunyDlmIRDsuGqKf9GHRdldFwDyYbSVOJsI21mLTSWnn039ep68KwKe0mv0kFwp9Ge8=s900-c-k-c0x00ffffff-no-rj";
+    private static final List<Platform> platforms = Arrays.asList(Platform.values());
+    private static final int countOfGenerationAttributesForGame = 2;
+    private static final int countOfGeneration = 1;
+    Random random = new Random();
+    Faker faker = new Faker();
+
     private final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     private final ConfigurableApplicationContext context;
-    private final GameService gameService;
     private final GenreService genreService;
-    private final InformationService informationService;
-    private final OrderService orderService;
-    private final ReviewService reviewService;
+    private final GameService gameService;
     private final UserService userService;
 
     @Autowired
-    public GameStoreRunner(ConfigurableApplicationContext context, GameService gameService, GenreService genreService, InformationService informationService, OrderService orderService, ReviewService reviewService, UserService userService) {
+    public GameStoreRunner(ConfigurableApplicationContext context, GameService gameService, GenreService genreService, UserService userService) {
         this.context = context;
         this.gameService = gameService;
         this.genreService = genreService;
-        this.informationService = informationService;
-        this.orderService = orderService;
-        this.reviewService = reviewService;
         this.userService = userService;
     }
 
@@ -53,48 +74,10 @@ public class GameStoreRunner implements CommandLineRunner {
                     0 - for Exit\
 
                     1 - for Add Game\
-
+                    
                     2 - for Add Genre\
 
-                    3 - for Find by email\
-
-                    4 - for Add Order\
-
-                    5 - for Add Review\
-
-                    6 - for Add User\
-
-                    7 - for Get all games\
-
-                    8 - for Get all genres\
-
-                    9 - for Get all information\
-
-                    10 - for Get all orders\
-
-                    11 - for Get all review\
-
-                    12 - for Get all users\
-
-                    13 - for Update user password\
-
-                    14 - for Update genre description\
-
-                    15 - for Update game\
-
-                    16 - for Get information by status\
-
-                    17 - for Get order by date\
-
-                    18 - for Get review by gameId \
-
-                    19 - for Get game by price between\
-
-                    20 - for Delete game\
-
-                    21 - for Delete user\
-
-                    22 - for Delete review""");
+                    3 - for Find user by email""");
 
             String input = bufferedReader.readLine().toLowerCase();
 
@@ -111,63 +94,6 @@ public class GameStoreRunner implements CommandLineRunner {
                 case "3":
                     this.findUser();
                     break;
-//                case "4":
-//                    this.addOrder();
-//                    break;
-                case "5":
-                    this.addReview();
-                    break;
-                case "6":
-                    this.addUser();
-                    break;
-                case "7":
-                    this.getGames();
-                    break;
-                case "8":
-                    this.getGenres();
-                    break;
-//                case "9":
-//                    this.getInformation();
-//                    break;
-//                case "10":
-//                    this.getOrders();
-//                    break;
-//                case "11":
-//                    this.getReview();
-//                    break;
-                case "12":
-                    this.getUsers();
-                    break;
-//                case "13":
-//                    this.updateUserPassword();
-//                    break;
-//                case "14":
-//                    this.updateGenreDescription();
-//                    break;
-//                case "15":
-//                    this.updateGame();
-//                    break;
-//                case "16":
-//                    this.getInformationByStatus();
-//                    break;
-//                case "17":
-//                    this.getOrderByDate();
-//                    break;
-//                case "18":
-//                    this.getReviewByGameId();
-//                    break;
-//                case "19":
-//                    this.getGameByPriceBetween();
-//                    break;
-//                case "20":
-//                    this.deleteGame();
-//                    break;
-//                case "21":
-//                    this.deleteUser();
-//                    break;
-//                case "22":
-//                    this.deleteReview();
-//                    break;
                 default:
                     System.out.println("Неверная команда");
             }
@@ -175,83 +101,23 @@ public class GameStoreRunner implements CommandLineRunner {
         }
     }
 
-    private List<UserDTO> getUsers() throws IOException {
-        return userService.getAll();
+    private void addGame() {
+        System.out.println("Later");
     }
 
-    private void getGames() throws IOException {
-        System.out.println(gameService.getById(UUID.fromString("1a999cd8-1728-4e8a-965f-52c21c56a5c4")).getRating());
-        System.out.println(gameService.getById(UUID.fromString("5694acc7-560e-4f81-bd1a-610ae49e9b98")).getRating());
-    }
-
-    private List<GenreDTO> getGenres() throws IOException {
-        return genreService.getAll();
-    }
-
-    private void addUser() throws IOException {
-        System.out.println("Введите данные пользователя в таком формате: Картинка firstName lastName email password date-of-birthday");
-        String[] userParams = bufferedReader.readLine().split("\\s+");
-
-        String[] userDate = userParams[5].split("-");
-        int year = Integer.parseInt(userDate[0]);
-        int month = Integer.parseInt(userDate[1]);
-        int day = Integer.parseInt(userDate[2]);
-        UserDTO userDTO = new UserDTO(null, userParams[0], userParams[1], userParams[2], userParams[3], userParams[4], LocalDate.of(year, month, day), Set.of(UserRoles.USER));
-
-        try {
-            this.userService.addUser(userDTO);
-            System.out.println("Пользователь успешно добавлен");
-        } catch (Exception e) {
-            System.out.println("Ошибка добавления пользователя: " + e.getMessage());
-        }
-    }
-
-    private void addGenre() throws IOException {
-        System.out.println("Введите данные в таком формате: название описание");
-        String[] userParams = bufferedReader.readLine().split("\\s+");
-        GenreDTO genreDTO = new GenreDTO(null, userParams[0], userParams[1]);
-
-        try {
-            this.genreService.addGenre(genreDTO);
-            System.out.println("Жанр успешно добавлен");
-        } catch (Exception e) {
-            System.out.println("Ошибка добавления жанра: " + e.getMessage());
-        }
-    }
-
-    private void addGame() throws IOException {
-        System.out.println("Введите данные в таком формате: картинка цена рейтинг название разработчик");
-        String[] gameParams = bufferedReader.readLine().split("\\s+");
-        GameDTO gameDTO = new GameDTO(null, gameParams[0], Integer.parseInt(gameParams[1]), gameParams[3], gameParams[4], null, LocalDate.now(), List.of(Platform.PC.toString(), Platform.Nintendo.toString()), genreService.getAll());
-
-        try {
-            this.gameService.addGame(gameDTO);
-            System.out.println("Игра успешно добавлен");
-        } catch (Exception e) {
-            System.out.println("Ошибка добавления игры: " + e.getMessage());
-        }
-    }
-
-    private void addReview() throws IOException {
-        System.out.println("Введите данные в таком формате: рэйтинг(0-5) описание idИгры idПользователя");
-        String[] reviewParams = bufferedReader.readLine().split("\\s+");
-        ReviewDTO reviewDTO = new ReviewDTO(null, Double.parseDouble(reviewParams[0]), reviewParams[1], LocalDate.now(), UUID.fromString(reviewParams[2]), UUID.fromString(reviewParams[3]));
-
-        try {
-            this.reviewService.addReview(reviewDTO);
-            System.out.println("Отзыв успешно добавлен");
-        } catch (Exception e) {
-            System.out.println("Ошибка добавления Отзыва: " + e.getMessage());
-        }
+    private void addGenre() {
+        System.out.println("Later");
     }
 
     private void findUser() throws IOException {
         System.out.println("Введите почту");
         String[] userParams = bufferedReader.readLine().split("\\s+");
 
-        UserDTO userDTO = userService.getByEmail(userParams[0]);
-        System.out.println(userDTO.getId() + userDTO.getEmail() + userDTO.getPassword());
+        try {
+            UserDTO userDTO = userService.getByEmail(userParams[0]);
+            System.out.println(userDTO.getId() + userDTO.getEmail() + userDTO.getPassword());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-
-    //TODO(Maybe add method's realization later...)
 }

@@ -9,6 +9,7 @@ import jakarta.validation.ConstraintViolation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public List<GenreDTO> getAll() {
         List<Genre> genres = (List<Genre>) genreRepository.findAll();
         List<GenreDTO> dtoGenres = new ArrayList<>();
