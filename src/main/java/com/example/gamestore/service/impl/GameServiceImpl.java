@@ -230,21 +230,11 @@ public class GameServiceImpl implements GameService {
             throw new RuntimeException("Данные игры отсутствуют");
         }
 
-        Optional<Game> existingGenre = gameRepository.findById(gameDTO.getId());
+        Optional<Game> existingGame = gameRepository.findById(gameDTO.getId());
 
-        if (existingGenre.isPresent()) {
+        if (existingGame.isPresent()) {
             Game game = modelMapper.map(gameDTO, Game.class);
-            gameRepository.updateGame(
-                    game.getName(),
-                    game.getPrice(),
-                    game.getDescription(),
-                    game.getPlatforms(),
-                    game.getReleaseData(),
-                    game.getRating(),
-                    game.getDeveloper(),
-                    game.getPicUri(),
-                    game.getId()
-            );
+            gameRepository.save(game);
         } else {
             throw new RuntimeException("Игры с таким id: " + gameDTO.getId() + " не существует");
         }
