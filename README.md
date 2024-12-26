@@ -1,5 +1,23 @@
 ﻿# GameStoreWebSite
 ## Project structure
-![image](https://github.com/user-attachments/assets/982540cd-b66b-4833-85b0-3b4f73aa79ef)
+├── src/
+│  └── main/
+│    ├── java/
+│    │  └── com/example/gamestore/
+│    │    ├── config/
+│    │    ├── controller/
+│    │    ├── dto/
+│    │    ├── entity/
+│    │    │  └── enums/
+│    │    ├── repository/
+│    │    ├── service/
+│    │    │  └── impl/
+│    │    ├── utils/
+│    │    └── GameStoreApplication
+│    └── resources/
+│      ├── static/
+│      └── templates/
+│        └── fragments/
+└── pom.xml
 
 P.S. The second part of project (with contracts) will be added soon... 
