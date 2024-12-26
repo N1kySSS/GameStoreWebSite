@@ -32,8 +32,6 @@ public class User extends BaseEntity {
 
     private List<Review> reviews;
 
-    private List<Information> informationList;
-
     private Set<UserRoles> roles = new HashSet<>();
 
     public User(String firstName, String lastName, String email, String password) {
@@ -137,14 +135,5 @@ public class User extends BaseEntity {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public List<Information> getInformationList() {
-        return informationList;
-    }
-
-    public void setInformationList(List<Information> informationList) {
-        this.informationList = informationList;
     }
 }

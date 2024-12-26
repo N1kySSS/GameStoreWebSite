@@ -30,8 +30,6 @@ public class Game extends BaseEntity{
 
     private List<Review> reviews;
 
-    private List<Information> informationList;
-
     private Set<Order> orders;
 
     public Game(String name, int price, String description, String developer, LocalDate releaseData, List<Platform> platforms, String picUri) {
@@ -126,15 +124,6 @@ public class Game extends BaseEntity{
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Information> getInformationList() {
-        return informationList;
-    }
-
-    public void setInformationList(List<Information> informationList) {
-        this.informationList = informationList;
     }
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
