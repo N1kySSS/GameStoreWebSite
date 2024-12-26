@@ -12,8 +12,6 @@ public interface GenreService {
 
     GenreDTO getById(UUID id);
 
-    GenreDTO getByName(String name);
-
     void updateGenre(GenreDTO genreDTO);
 
     void deleteGenre(UUID id);

@@ -102,53 +102,6 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewDTO> getByGameId(UUID gameId) {
-        if (gameId == null) {
-            throw new RuntimeException("Неверный gameId");
-        }
-
-        List<Review> reviews = reviewRepository.findByGameId(gameId);
-        List<ReviewDTO> dtoReviews = new ArrayList<>();
-        reviews.forEach(it -> dtoReviews.add(modelMapper.map(it, ReviewDTO.class)));
-
-        if (dtoReviews.isEmpty()) {
-            throw new RuntimeException("У этой игры нет отзывов");
-        } else {
-            return dtoReviews;
-        }
-    }
-
-    @Override
-    public List<ReviewDTO> getByDate(LocalDate dateOfPublication) {
-        if (dateOfPublication == null) {
-            throw new RuntimeException("Неверная дата");
-        }
-
-        List<Review> reviews = reviewRepository.findByDate(dateOfPublication);
-        List<ReviewDTO> dtoReviews = new ArrayList<>();
-        reviews.forEach(it -> dtoReviews.add(modelMapper.map(it, ReviewDTO.class)));
-
-        if (dtoReviews.isEmpty()) {
-            throw new RuntimeException("Отзывов за эту дату не найдено");
-        } else {
-            return dtoReviews;
-        }
-    }
-
-    @Override
-    public List<ReviewDTO> getByRating(double rating) {
-        List<Review> reviews = reviewRepository.findByRating(rating);
-        List<ReviewDTO> dtoReviews = new ArrayList<>();
-        reviews.forEach(it -> dtoReviews.add(modelMapper.map(it, ReviewDTO.class)));
-
-        if (dtoReviews.isEmpty()) {
-            throw new RuntimeException("Игр с таким рейтингом не найдено");
-        } else {
-            return dtoReviews;
-        }
-    }
-
-    @Override
     @CacheEvict(cacheNames = "reviews", allEntries = true)
     public void deleteReview(UUID id) {
         if (id == null) {

@@ -13,10 +13,6 @@ public interface UserService {
 
     UserDTO getById(UUID id);
 
-    List<UserDTO> getByFirstName(String firstName);
-
-    List<UserDTO> getByLastName(String lastName);
-
     UserDTO getByEmail(String email);
 
     void updateUserInfo(UserDTO userDTO);

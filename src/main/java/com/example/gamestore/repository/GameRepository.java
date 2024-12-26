@@ -17,19 +17,7 @@ import java.util.UUID;
 @Repository
 public interface GameRepository extends BaseRepository<Game, UUID> {
 
-    @Query("SELECT g FROM Game g JOIN g.genres genre WHERE genre.name = :genreName")
-    List<Game> findByGenre(@Param("genreName") String genreName);
-
-    @Query("SELECT g FROM Game g WHERE g.price BETWEEN :startPrice AND :endPrice")
-    List<Game> findByPriceBetween(@Param("startPrice") int startPrice, @Param("endPrice") int endPrice);
-
     List<Game> findTop5ByRatingBetween(@Param("minRating") double minRating, @Param("maxRating") double maxRating);
-
-    @Query("SELECT g FROM Game g WHERE g.developer = :developer")
-    List<Game> findByDeveloper(@Param("developer") String developer);
-
-    @Query("SELECT g FROM Game g JOIN g.platforms p WHERE p = :platform")
-    List<Game> findByPlatform(@Param("platform") String platform);
 
     @Modifying
     @Transactional

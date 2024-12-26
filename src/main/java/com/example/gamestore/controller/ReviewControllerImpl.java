@@ -58,7 +58,7 @@ public class ReviewControllerImpl implements ReviewController {
 
         boolean isAdmin = userDTO.getRoles().stream().anyMatch(role -> role == UserRoles.ADMIN);
 
-        List<ReviewDTO> reviewDTOList = userService.getById(userDTO.getId()).getReviews();
+        List<ReviewDTO> reviewDTOList = reviewService.getAllByUserId(userDTO.getId());
         List<MyReviewViewModel> reviewViewModels = reviewDTOList
                 .stream()
                 .map(dto -> new MyReviewViewModel(

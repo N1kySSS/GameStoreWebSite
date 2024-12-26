@@ -13,17 +13,7 @@ public interface GameService {
 
     GameDTO getById(UUID id);
 
-    List<GameDTO> getByGenre(String genreName);
-
-    List<GameDTO> getByPriceBetween(int startPrice, int endPrice);
-
-    List<GameDTO> findByRatingBetween(double minRating, double maxRating);
-
     GameDTO getByName(String name);
-
-    List<GameDTO> getByDeveloper(String developer);
-
-    List<GameDTO> getByPlatform(String platform);
 
     List<GameDTO> findNew();
 

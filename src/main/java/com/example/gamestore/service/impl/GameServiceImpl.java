@@ -93,46 +93,6 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<GameDTO> getByGenre(String genreName) {
-        if (genreName == null) {
-            throw new RuntimeException("Неверное имя");
-        }
-
-        List<Game> games = gameRepository.findByGenre(genreName);
-        List<GameDTO> dtoGames = new ArrayList<>();
-        games.forEach(it -> dtoGames.add(modelMapper.map(it, GameDTO.class)));
-
-        if (dtoGames.isEmpty()) {
-            throw new RuntimeException("Игры с таким жанром: " + genreName + " не найдены");
-        } else {
-            return dtoGames;
-        }
-    }
-
-    @Override
-    public List<GameDTO> getByPriceBetween(int startPrice, int endPrice) {
-        List<Game> games = gameRepository.findByPriceBetween(startPrice, endPrice);
-        List<GameDTO> dtoGames = new ArrayList<>();
-        games.forEach(it -> dtoGames.add(modelMapper.map(it, GameDTO.class)));
-
-        if (dtoGames.isEmpty()) {
-            throw new RuntimeException("Игр в таком ценовом диапазоне [" + startPrice + " - " + endPrice + "] нет");
-        } else {
-            return dtoGames;
-        }
-    }
-
-    @Override
-    public List<GameDTO> findByRatingBetween(double minRating, double maxRating) {
-        List<Game> games = gameRepository.findTop5ByRatingBetween(minRating, maxRating);
-        List<GameDTO> dtoGames = new ArrayList<>();
-        games.forEach(it -> dtoGames.add(modelMapper.map(it, GameDTO.class)));
-
-        return dtoGames;
-
-    }
-
-    @Override
     @Transactional
     public GameDTO getByName(String name) {
         if (name == null) {
@@ -146,40 +106,6 @@ public class GameServiceImpl implements GameService {
             throw new RuntimeException("Игры с таким именем: " + name + " не существует");
         } else {
             return dtoGame;
-        }
-    }
-
-    @Override
-    public List<GameDTO> getByDeveloper(String developer) {
-        if (developer == null) {
-            throw new RuntimeException("Неверный издатель");
-        }
-
-        List<Game> games = gameRepository.findByDeveloper(developer);
-        List<GameDTO> dtoGames = new ArrayList<>();
-        games.forEach(it -> dtoGames.add(modelMapper.map(it, GameDTO.class)));
-
-        if (dtoGames.isEmpty()) {
-            throw new RuntimeException("Игры с таким издателем: " + developer + " не найдены");
-        } else {
-            return dtoGames;
-        }
-    }
-
-    @Override
-    public List<GameDTO> getByPlatform(String platform) {
-        if (platform == null) {
-            throw new RuntimeException("Неверный email");
-        }
-
-        List<Game> games = gameRepository.findByPlatform(platform);
-        List<GameDTO> dtoGames = new ArrayList<>();
-        games.forEach(it -> dtoGames.add(modelMapper.map(it, GameDTO.class)));
-
-        if (dtoGames.isEmpty()) {
-            throw new RuntimeException("Игры на такой платформе: " + platform + " не найдены");
-        } else {
-            return dtoGames;
         }
     }
 

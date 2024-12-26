@@ -99,27 +99,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getByDate(LocalDate dateOfOrder, UUID userId) {
-        if (userId == null) {
-            throw new RuntimeException("Неверный id");
-        }
-
-        if (dateOfOrder == null) {
-            throw new RuntimeException("Неверная дата рождения");
-        }
-
-        List<Order> userOrders = orderRepository.findByDate(dateOfOrder, userId);
-        List<OrderDTO> userDtoOrders = new ArrayList<>();
-        userOrders.forEach(it -> userDtoOrders.add(modelMapper.map(it, OrderDTO.class)));
-
-        if (userDtoOrders.isEmpty()) {
-            throw new RuntimeException("У этого пользователя нет заказов за эту дату: " + dateOfOrder);
-        } else {
-            return userDtoOrders;
-        }
-    }
-
-    @Override
     @CacheEvict(cacheNames = "orders", allEntries = true)
     public void deleteOrder(UUID id) {
         if (id == null) {

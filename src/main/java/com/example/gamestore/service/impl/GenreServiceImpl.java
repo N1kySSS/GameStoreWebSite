@@ -81,21 +81,6 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreDTO getByName(String name) {
-        if (name == null) {
-            throw new RuntimeException("Неверное имя");
-        }
-
-        Genre genre = genreRepository.findByName(name);
-
-        if (genre == null) {
-            throw new RuntimeException("Жанр с таким именем: " + name + " не найден");
-        } else {
-            return modelMapper.map(genre, GenreDTO.class);
-        }
-    }
-
-    @Override
     public void updateGenre(GenreDTO genreDTO) {
         if (!this.validationUtil.isValid(genreDTO)) {
             this.validationUtil

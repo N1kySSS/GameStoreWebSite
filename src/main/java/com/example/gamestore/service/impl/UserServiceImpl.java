@@ -81,40 +81,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getByFirstName(String firstName) {
-        if (firstName == null) {
-            throw new RuntimeException("Неверное имя");
-        }
-
-        List<User> users = userRepository.findByFirstName(firstName);
-        List<UserDTO> dtoUsers = new ArrayList<>();
-        users.forEach(it -> dtoUsers.add(modelMapper.map(it, UserDTO.class)));
-
-        if (dtoUsers.isEmpty()) {
-            throw new RuntimeException("Пользователи с таким именем: " + firstName + " не найдены");
-        } else {
-            return dtoUsers;
-        }
-    }
-
-    @Override
-    public List<UserDTO> getByLastName(String lastName) {
-        if (lastName == null) {
-            throw new RuntimeException("Неверная фамилия");
-        }
-
-        List<User> users = userRepository.findByLastName(lastName);
-        List<UserDTO> dtoUsers = new ArrayList<>();
-        users.forEach(it -> dtoUsers.add(modelMapper.map(it, UserDTO.class)));
-
-        if (dtoUsers.isEmpty()) {
-            throw new RuntimeException("Пользователи с такой фамилией: " + lastName + " не найдены");
-        } else {
-            return dtoUsers;
-        }
-    }
-
-    @Override
     public UserDTO getByEmail(String email) {
         if (email == null) {
             throw new RuntimeException("Неверный email");

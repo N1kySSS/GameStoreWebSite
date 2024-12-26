@@ -17,8 +17,5 @@ public interface BaseRepository<T, ID> extends CrudRepository<T, ID> {
     Optional<T> findById(ID id);
 
     @Override
-    boolean existsById(ID id);
-
-    @Override
     void delete(T entity);
 }
